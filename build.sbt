@@ -3,18 +3,13 @@ organization := "com.cryptokoans"
 version := "0.1"
 
 scalaVersion := "2.12.6"
-enablePlugins(ScalaJSPlugin)
+
 jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv()
 scalaJSUseMainModuleInitializer := true
-//enablePlugins(ScalaJSBundlerPlugin)
+enablePlugins(ScalaJSBundlerPlugin)
 
 
-//scalacOptions += "-P:scalajs:sjsDefinedByDefault"
-//useYarn := true // makes scalajs-bundler use yarn instead of npm
-//requiresDOM in Test := true
-//scalaJSUseMainModuleInitializer := true
-//scalaJSModuleKind := ModuleKind.CommonJSModule // configure Scala.js to emit a JavaScript module instead of a top-level script
-//mainClass in Compile := Some("com.cryptokoans.Main")
+useYarn := true // makes scalajs-bundler use yarn instead of npm
 
 scalacOptions ++=
   "-encoding" :: "UTF-8" ::
@@ -36,8 +31,6 @@ scalacOptions ++=
 
 resolvers += "jitpack" at "https://jitpack.io"
 libraryDependencies += "com.github.jcouyang" % "owlet" % "0.2.1"
-/*
-//libraryDependencies += "io.github.outwatch" %%% "outwatch" % "1.0.0-RC2"
 
 // hot reloading configuration:
 // https://github.com/scalacenter/scalajs-bundler/issues/180
@@ -61,4 +54,3 @@ copyFastOptJS := {
   val files = Seq(name.value.toLowerCase + "-fastopt-loader.js", name.value.toLowerCase + "-fastopt.js") map { p => (inDir / p, outDir / p) }
   IO.copy(files, overwrite = true, preserveLastModified = true, preserveExecutable = true)
 }
-*/
