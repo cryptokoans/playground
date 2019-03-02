@@ -58,3 +58,7 @@ copyFastOptJS := {
 mappings in makeSite ++= Seq(
   file("assets/index.html") -> "index.html"
 )
+
+enablePlugins(GhpagesPlugin)
+
+git.remoteRepo := "git@github.com:cryptokoans/playground.git"
