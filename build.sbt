@@ -54,3 +54,7 @@ copyFastOptJS := {
   val files = Seq(name.value.toLowerCase + "-fastopt-loader.js", name.value.toLowerCase + "-fastopt.js") map { p => (inDir / p, outDir / p) }
   IO.copy(files, overwrite = true, preserveLastModified = true, preserveExecutable = true)
 }
+
+mappings in makeSite ++= Seq(
+  file("assets/index.html") -> "index.html"
+)
