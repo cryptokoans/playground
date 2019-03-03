@@ -7,12 +7,16 @@ import monix.execution.Scheduler.Implicits.global
 import cats._
 import cats.implicits._
 import monix.reactive.subjects.Var
+import fluence.crypto.hash.JsCryptoHasher
 
 object Main {
-  def main(args: scala.Array[String]): Unit = {
+  /*def main(args: scala.Array[String]): Unit = {
     val baseInput = number("Base", 2.0)
     val exponentInput = number("Exponent", 10.0)
     val pow = (baseInput, exponentInput) parMapN math.pow
     renderOutput(pow, "#app").runSyncStep
+  }*/
+  def main(args: scala.Array[String]): Unit = {
+
   }
 }
