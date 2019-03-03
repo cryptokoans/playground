@@ -57,6 +57,7 @@ copyFastOptJS := {
 
 mappings in makeSite ++= Seq(
   file("assets/index.html") -> "index.html",
+  target.value / "scala-2.12/scalajs-bundler/main/cryptokoans-jsdeps.js" -> "cryptokoans-jsdeps.js",
   target.value / "scala-2.12/scalajs-bundler/main/cryptokoans-fastopt.js" -> "cryptokoans-fastopt.js",
   target.value / "scala-2.12/scalajs-bundler/main/cryptokoans-fastopt-library.js" -> "cryptokoans-fastopt-library.js",
   target.value / "scala-2.12/scalajs-bundler/main/cryptokoans-fastopt-loader.js" -> "cryptokoans-fastopt-loader.js"
@@ -78,3 +79,5 @@ libraryDependencies ++= Seq(
   "one.fluence" %%% "crypto-keystore" % cryptoV, // serialize and store a keypair
   "one.fluence" %%% "crypto-jwt" % cryptoV // simple JWT implementation
 )
+
+jsDependencies += "org.webjars.bower" % "jshashes" % "1.0.5" / "1.0.5/hashes.min.js"
