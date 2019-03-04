@@ -15,15 +15,20 @@ import scodec.bits.ByteVector
 
 object Main {
   /*def main(args: scala.Array[String]): Unit = {
-    val baseInput = number("Base", 2.0)
-    val exponentInput = number("Exponent", 10.0)
-    val pow = (baseInput, exponentInput) parMapN math.pow
-    renderOutput(pow, "#app").runSyncStep
-  }*/
-  def main(args: scala.Array[String]): Unit = {
-    val label = text("my label")
-    val secret = string("secret","secret")
+    val secret = label(string("secret","secret"),"my secret")
     val hashedSecret = secret.map(s => ByteVector(JsCryptoHasher.Sha256.unsafe(s.getBytes)).toHex)
     renderOutput(hashedSecret,"#app").runSyncStep
+  }*/
+
+  def main(args: scala.Array[String]): Unit = {
+    val hashedSecret = label(string("hashed secret", "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"),"Hashed Secret")
+    val secret = label(string("secret",""),"Secret")
+    //val secretText = hashedSecret flatMap(s => text(s))
+    val candidate = secret map hashString
+    val verified = (hashedSecret,secret) parMapN hashverify
+    render(hashedSecret &> secret &> output(hashedSecret) &> output(candidate) &> output(verified), "#app").runSyncStep
   }
+
+  def hashString(input: String): String = ByteVector(JsCryptoHasher.Sha256.unsafe(input.getBytes)).toHex
+  def hashverify(hashed: String, secret: String): Boolean = ByteVector(JsCryptoHasher.Sha256.unsafe(secret.getBytes)).toHex == hashed
 }
