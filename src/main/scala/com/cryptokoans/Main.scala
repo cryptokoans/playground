@@ -19,15 +19,13 @@ object Main {
     val hashedSecret = label(string("hashed secret", "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"),"Hashed Secret (hex encoded)")
     val secret = label(string("secret","abc"),"Secret (string)")
     //val secretText = hashedSecret flatMap(s => text(s))
-    val candidate = secret map hashString
-    val verified = (hashedSecret,secret) parMapN hashverify
-    val another = JsCryptoHasher.Sha256[Owlet]("abc".getBytes).map(ByteVector(_).toHex).value.flatMap{
-      case Left(e) => text(e.message)
-      case Right(v) => text(v)
+    val candidateHash = secret.flatMap(s => JsCryptoHasher.Sha256[Owlet](s.getBytes).value).map {
+      case Left(e) => e.message
+      case Right(h) => ByteVector(h).toHex
     }
-    render(div(hashedSecret) &> div(secret) &> output(hashedSecret) &> output(candidate) &> output(verified) &> another, "#app").runSyncStep
+    val verified = (hashedSecret,candidateHash) parMapN {
+      case (hs,ch) => hs == ch
+    }
+    render(div(hashedSecret) &> div(secret) &> output(hashedSecret) &> output(candidateHash) &> output(verified), "#app").runSyncStep
   }
-
-  def hashString(input: String): String = ByteVector(JsCryptoHasher.Sha256.unsafe(input.getBytes)).toHex
-  def hashverify(hashed: String, secret: String): Boolean = ByteVector(JsCryptoHasher.Sha256.unsafe(secret.getBytes)).toHex == hashed
 }
