@@ -29,8 +29,8 @@ scalacOptions ++=
     "-Ywarn-nullary-unit" ::
     Nil
 
-resolvers += "jitpack" at "https://jitpack.io"
-libraryDependencies += "com.github.jcouyang" % "owlet" % "0.2.1"
+//resolvers += "jitpack" at "https://jitpack.io"
+libraryDependencies += "us.oyanglul" %%% "owlet" % "0.3.1-SNAPSHOT"
 
 // hot reloading configuration:
 // https://github.com/scalacenter/scalajs-bundler/issues/180
